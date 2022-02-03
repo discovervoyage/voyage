@@ -1,0 +1,6 @@
+usr/local/bin/voyage-qt usr/bin
+share/pixmaps/voyage32.xpm usr/share/pixmaps
+share/pixmaps/voyage16.xpm usr/share/pixmaps
+share/pixmaps/voyage128.png usr/share/pixmaps
+debian/voyage-qt.desktop usr/share/applications
+debian/voyage-qt.protocol usr/share/kde4/services/

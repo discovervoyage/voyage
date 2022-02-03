@@ -1,0 +1,8 @@
+/usr/bin/voyage-cli		--	gen_context(system_u:object_r:voyage_exec_t,s0)
+/usr/sbin/voyaged		--	gen_context(system_u:object_r:voyage_exec_t,s0)
+/usr/lib(64)?/voyage/voyaged		--	gen_context(system_u:object_r:voyage_exec_t,s0)
+
+/etc/voyage(/.*)?		gen_context(system_u:object_r:voyage_conf_t,s0)
+/var/lib/voyage(/.*)?		gen_context(system_u:object_r:voyage_var_lib_t,s0)
+
+(/var)?/run/voyaged(/.*)?   gen_context(system_u:object_r:voyage_var_run_t,s0)

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Voyage Core
+Comment=Voyage P2P Cryptocurrency
+Comment[fr]=Voyage, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Voyage, eşten eşe kriptografik sanal para birimi
+Exec=voyage-qt %u
+Terminal=false
+Type=Application
+Icon=voyage128
+MimeType=x-scheme-handler/voyage;
+Categories=Office;Finance;
+StartupWMClass=Voyage-qt

@@ -1,0 +1,81 @@
+policy_module(voyage, 1.100.1)
+
+########################################
+#
+# Declarations
+#
+
+type voyage_t;
+type voyage_exec_t;
+init_daemon_domain(voyage_t, voyage_exec_t)
+
+permissive voyage_t;
+
+type voyage_initrc_exec_t;
+init_script_file(voyage_initrc_exec_t)
+
+type voyage_conf_t;
+files_type(voyage_conf_t)
+
+type voyage_var_lib_t;
+files_type(voyage_var_lib_t)
+
+type voyage_var_run_t;
+files_type(voyage_var_run_t)
+
+type voyage_port_t;
+corenet_port(voyage_port_t)
+
+########################################
+#
+# voyage local policy
+#
+allow voyage_t self:process { fork };
+
+allow voyage_t self:fifo_file rw_fifo_file_perms;
+allow voyage_t self:unix_stream_socket create_stream_socket_perms;
+
+manage_dirs_pattern(voyage_t, voyage_conf_t, voyage_conf_t)
+manage_files_pattern(voyage_t, voyage_conf_t, voyage_conf_t)
+
+manage_dirs_pattern(voyage_t, voyage_var_lib_t, voyage_var_lib_t)
+manage_files_pattern(voyage_t, voyage_var_lib_t, voyage_var_lib_t)
+files_var_lib_filetrans(voyage_t, voyage_var_lib_t, { dir file })
+
+manage_dirs_pattern(voyage_t, voyage_var_run_t, voyage_var_run_t)
+manage_files_pattern(voyage_t, voyage_var_run_t, voyage_var_run_t)
+
+sysnet_dns_name_resolve(voyage_t)
+corenet_all_recvfrom_unlabeled(voyage_t)
+
+allow voyage_t self:tcp_socket create_stream_socket_perms;
+corenet_tcp_sendrecv_generic_if(voyage_t)
+corenet_tcp_sendrecv_generic_node(voyage_t)
+corenet_tcp_sendrecv_all_ports(voyage_t)
+corenet_tcp_bind_generic_node(voyage_t)
+
+gen_require(`
+    type voyage_port_t;
+')
+allow voyage_t voyage_port_t:tcp_socket name_bind;
+
+gen_require(`
+    type voyage_port_t;
+')
+allow voyage_t voyage_port_t:tcp_socket name_connect;
+
+domain_use_interactive_fds(voyage_t)
+
+files_read_etc_files(voyage_t)
+
+miscfiles_read_localization(voyage_t)
+
+sysnet_dns_name_resolve(voyage_t)
+
+allow voyage_t voyage_exec_t:file execute_no_trans;
+allow voyage_t self:process setsched;
+corecmd_exec_ls(voyage_t)
+corenet_tcp_connect_http_port(voyage_t)
+dev_read_urand(voyage_t)
+fs_getattr_xattr_fs(voyage_t)
+kernel_read_system_state(voyage_t)

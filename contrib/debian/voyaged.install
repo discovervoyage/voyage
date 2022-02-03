@@ -1,0 +1,3 @@
+usr/local/bin/voyaged usr/bin
+usr/local/bin/voyage-cli usr/bin
+debian/examples/voyage.conf etc/voyage
